@@ -1,0 +1,201 @@
+<app-sidebar></app-sidebar>
+
+<div class="content-page">
+  <div class="content">
+    <app-topbar></app-topbar>
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="card">
+              <div class="card-body">
+
+                <div class="row mb-2 col-sm-12">
+                    <div class="mb-3 col-sm-3">
+                      <label class="form-label" for="validationCustom02"
+                        >Departamento</label
+                      >
+                      <select
+                        id="department"
+                        name="department"
+                        class="form-control"
+                        required
+                        [(ngModel)]="incidence.department!.id"
+                      >
+                        <option value="" disabled selected>
+                          [Seleccione el Departamento]
+                        </option>
+                        <option [value]="item.id" *ngFor="let item of listDepartments">
+                          {{ item.name }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="mb-3 col-sm-3">
+                      <label class="form-label" for="validationCustom02">Causa</label>
+                      <select
+                        id="cause"
+                        name="cause"
+                        class="form-control"
+                        [(ngModel)]="incidence.cause"
+                      >
+                        <option value="" disabled selected>[Selección de opciones]</option>
+                        <option value="ruidos molestos" selected>Ruidos molestos</option>
+                        <option value="filtraciones" selected>Filtraciones</option>
+                      </select>          
+                    </div>
+                    <div class="mb-3 col-sm-3">
+                      <label class="form-label" for="validationCustom02">Estado</label>
+                      <select
+                        id="state"
+                        name="status"
+                        class="form-control"
+                        [(ngModel)]="incidence.status"
+                      >
+                        <option value="" disabled selected>[Selección de estado]</option>
+                        <option value="1" selected>No atendido</option>
+                        <option value="2" selected>Atendido</option>
+                      </select>          
+                    </div>
+                    <div class="col-sm-3" style="margin-top: 1.8rem!important;">
+                      <a
+                      style="cursor: pointer; width: 100%;"
+                      class="btn btn-primary"
+                      (click)="consulta()"
+                      >Filtrar
+                      </a>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                  <div class="col-sm-4">
+                    <a
+                      style="cursor: pointer"
+                      routerLink="/dashboard/incidence/create"
+                      class="btn btn-danger mb-2"
+                      ><i class="mdi mdi-plus-circle me-2"></i> Crear
+                      Incidencias</a
+                    >
+                  </div>
+                </div>
+
+                <div class="table-responsive">
+                  <table
+                    class="table table-centered w-100 dt-responsive nowrap"
+                    id="incidence-datatable"
+                  >
+                    <thead class="table-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Departamento</th>
+                        <th>Causa</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th>Fecha de Incidencia</th>
+                        <th>Counter</th>
+                        <th>Fecha de Registro</th>
+                        <th style="width: 110px">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let item of incidences; let indice = index">
+                      <tr>
+                        <td>{{ indice + 1 }}</td>
+                        <td>{{ item.department.name }}</td>
+                        <td>{{ item.cause }}</td>
+                        <td>{{ item.comment }}</td>
+                        <td>
+                          {{ getEstado(item.status == null ? 1 : item.status) }}
+                        </td>
+                        <td>{{ item.incidenceDate }}</td>
+                        <td>{{ item.user.name }}</td>
+                        <td>{{ item.registrationDate }}</td>
+                        <td class="table-action" *ngIf="item.status == 2">
+                          <button
+                            type="button"
+                            disabled
+                            class="btn btn-primary"
+                          >
+                            Gestionar
+                          </button>
+                        </td>
+                        <td class="table-action" *ngIf="item.status == 1">
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#standard-modal"
+                            (click)="searchIncidence(item)"
+                          >
+                          Gestionar
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- end card-body-->
+            </div>
+            <!-- end card-->
+            <!-- end row -->
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container -->
+    <!-- Standard modal -->
+    <div
+      id="standard-modal"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="standard-modalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="standard-modalLabel">Gestionar Incidencia</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-hidden="true"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Código: <span class="codigo">{{ incidence.id }}</span></h5>
+                <h5 class="card-title">Departamento: <span class="department">{{ incidence.department.name }}</span></h5>
+                <h5 class="card-title">Causa: <span class="cause">{{ incidence.cause }}</span></h5>
+  
+                <div class="form-group">
+                  <h5 class="card-title">Estado de Incidencia</h5>
+                  <select class="form-control" name="status" [(ngModel)]="incidence.status">
+                    <option disabled selected value="">[Seleccionar Estado]</option>
+                    <option disabled selected value="1">No Atendido</option>
+                    <option value="2">Atendido</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+              Salir
+            </button>
+            <button type="button" class="btn btn-primary" (click)="updateProccess()" data-bs-dismiss="modal">Guardar Cambios</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+  </div>
+  <!-- content -->
+  <app-footer></app-footer>
+</div>

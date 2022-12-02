@@ -1,0 +1,124 @@
+<app-sidebar></app-sidebar>
+
+<div class="content-page">
+  <div class="content">
+    <app-topbar></app-topbar>
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item">
+                  <a style="cursor: pointer" href="javascript: void(0);"
+                    >Hyper</a
+                  >
+                </li>
+                <li class="breadcrumb-item">
+                  <a style="cursor: pointer" routerLink="/dashboard/mascot"
+                    >Mascota</a
+                  >
+                </li>
+                <li class="breadcrumb-item active">Actualizar Mascota</li>
+              </ol>
+            </div>
+            <h4 class="page-title">Actualizar Mascota</h4>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <form #updateMascot="ngForm" (ngSubmit)="update(updateMascot)">
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom01">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                id="name"
+                [(ngModel)]="mascot.name"
+                placeholder="Ingrese su nombre"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Sexo</label>
+              <select
+                id="sex"
+                name="sex"
+                class="form-control"
+                [(ngModel)]="mascot.sex"
+              >
+                <option value="" disabled selected>[Seleccione Sexo]</option>
+                <option value="macho" selected>Macho</option>
+                <option value="hembra" selected>Hembra</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Raza</label>
+              <select
+                id="race"
+                name="race"
+                class="form-control"
+                [(ngModel)]="mascot.race"
+              >
+                <option value="" disabled selected>[Seleccione Raza]</option>
+                <option value="pekines" selected>Pekinés</option>
+                <option value="doberman" selected>Doberman</option>
+                <option value="pitbull" selected>Pitbull</option>
+                <option value="rottweiler" selected>Rottweiler</option>
+              </select>          
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Propietario</label>
+              <select
+                id="user"
+                name="user"
+                class="form-control"
+                [(ngModel)]="mascot.user!.id"
+              >
+                <option value="" disabled selected>[Seleccione Propietario]</option>
+                <option value="{{ item.id }}" *ngFor="let item of listUsers">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Departamento</label>
+              <select
+                id="department"
+                name="department"
+                class="form-control"
+                [(ngModel)]="mascot.department!.id"
+              >
+                <option value="" disabled selected>[Seleccione Departamento]</option>
+                <option value="{{ item.id }}" *ngFor="let item of listDepartments">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+            <div class="list-inline">
+              <button class="btn btn-primary mb-4 list-inline-item" type="submit">
+                Registrar Mascota
+              </button>
+              <button class="btn btn-secondary mb-4 list-inline-item float-end" routerLink="/dashboard/mascot" type="button">
+                Regresar               
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- content -->
+  <app-footer></app-footer>
+</div>

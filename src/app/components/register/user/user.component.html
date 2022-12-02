@@ -1,0 +1,102 @@
+<app-sidebar></app-sidebar>
+
+<div class="content-page">
+  <div class="content">
+    <app-topbar></app-topbar>
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="card">
+              <div class="card-body">
+                <div class="row mb-2">
+                  <div class="col-sm-4">
+                    <a
+                      style="cursor: pointer"
+                      routerLink="/dashboard/user/create"
+                      class="btn btn-danger mb-2"
+                      ><i class="mdi mdi-plus-circle me-2"></i> Crear Usuario</a
+                    >
+                  </div>
+                </div>
+
+                <div class="table-responsive">
+                  <table
+                    class="table table-centered w-100 dt-responsive nowrap"
+                    id="users-datatable"
+                  >
+                    <thead class="table-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Nombre usuario</th>
+                        <th>DNI</th>
+                        <th>Teléfono</th>
+                        <th>Fecha creación</th>
+                        <th>Estado</th>
+                        <th style="width: 110px">Acciones</th>
+                      </tr>
+                    </thead>
+                    <!-- <tbody>
+                        <tr>
+                          <td>a</td>
+                          <td>a</td>
+                          <td>a</td>
+                          <td>a</td>
+                          <td>a</td>
+                          <td>a</td>
+                          <td>a</td>
+                          <td>a</td>
+                          <td class="table-action">
+                            <a style="cursor: pointer" class="action-icon">
+                              <i class="mdi mdi-eye"></i
+                            ></a>
+                            <a style="cursor: pointer" class="action-icon">
+                              <i class="mdi mdi-square-edit-outline"></i
+                            ></a>
+                            <a style="cursor: pointer" class="action-icon">
+                              <i class="mdi mdi-delete"></i
+                            ></a>
+                          </td>
+                        </tr>
+                    </tbody> -->
+                    <tbody *ngFor="let item of users; let indice = index">
+                      <tr *ngIf="item.username != 'admin' && item.status != 1">
+                        <td>{{ indice + 1 }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.email }}</td>
+                        <td>{{ item.username }}</td>
+                        <td>{{ item.dni }}</td>
+                        <td>{{ item.phone }}</td>
+                        <td>{{ item.joinDate }}</td>
+                        <td>{{ getEstado(item.status == null?0:item.status) }}</td>
+                        <td class="table-action">
+                          <a style="cursor: pointer" class="action-icon" [routerLink]="['/dashboard/user/update/', item.id]" >
+                            <i class="mdi mdi-square-edit-outline"></i
+                          ></a>
+                          <a style="cursor: pointer" class="action-icon" (click)="deleteUser(item)">
+                            <i class="mdi mdi-delete"></i
+                          ></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- end card-body-->
+            </div>
+            <!-- end card-->
+            <!-- end row -->
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- content -->
+  <app-footer></app-footer>
+</div>

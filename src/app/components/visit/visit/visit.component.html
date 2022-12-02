@@ -1,0 +1,175 @@
+<app-sidebar></app-sidebar>
+
+<div class="content-page">
+  <div class="content">
+    <app-topbar></app-topbar>
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="card">
+              <div class="card-body">
+                <div class="row mb-2">
+                  <div class="col-sm-4">
+                    <a
+                      style="cursor: pointer"
+                      routerLink="/dashboard/visit/create"
+                      class="btn btn-danger mb-2"
+                      ><i class="mdi mdi-plus-circle me-2"></i> Registrar
+                      Visita</a
+                    >
+                  </div>
+                </div>
+
+                <div class="table-responsive">
+                  <table
+                    class="table table-centered w-100 dt-responsive nowrap"
+                    id="products-datatable"
+                    style="text-align: center"
+                  >
+                    <thead class="table-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Visitante</th>
+                        <th>DNI</th>
+                        <th>Teléfono</th>
+                        <th>Propietario</th>
+                        <th>Fecha y hora ingreso</th>
+                        <th>Fecha y hora estimada</th>
+                        <th>Fecha y hora salida</th>
+                        <th>Estado</th>
+                        <th style="width: 110px">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let item of visits; let indice = index">
+                      <tr>
+                        <td>{{ indice + 1 }}</td>
+                        <td>{{ item.visitor.name }} {{ item.visitor.lastname }}</td>
+                        <td>{{ item.visitor.dni }}</td>
+                        <td>{{ item.visitor.phone }}</td>
+                        <td>{{ item.department.user.name }}</td>
+                        <td>{{ item.entryDate }}</td>
+                        <td>{{ item.estimatedDate }}</td>
+                        <td *ngIf="item.exitDate == null"> - </td>
+                        <td *ngIf="item.exitDate != null">{{ item.exitDate }}</td>
+                        <td>{{ getEstado(item.status == null ? 0 : item.status) }}</td>
+                        <td class="table-action" *ngIf="item.status == 1">
+                          <button
+                            type="button"
+                            disabled
+                            class="btn btn-primary"
+                          >
+                            Actualizar
+                          </button>
+                        </td>
+                        <td class="table-action" *ngIf="item.status == 0">
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#standard-modal"
+                            (click)="searchVisit(item)"
+                          >
+                            Actualizar
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- end card-body-->
+            </div>
+            <!-- end card-->
+            <!-- end row -->
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container -->
+    <!-- Standard modal -->
+    <div
+    id="standard-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="standard-modalLabel"
+    aria-hidden="true"
+    >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="standard-modalLabel">Gestionar Incidencia</h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-hidden="true"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Código: <span class="codigo">{{ visit.id }}</span></h5>
+
+              <div class="mb-3">
+                <label class="form-label" for="validationCustom02"
+                  >Fecha y hora de salida</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  name="entryDate"
+                  id="entryDate"
+                  disabled
+                  [value]="dateTime"
+                  [(ngModel)]="dateTime"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="validationCustom02"
+                  >Comentario</label
+                >
+                <input         
+                  type="text"
+                  class="form-control"
+                  id="comments"
+                  name="comments"
+                  placeholder="Ingrese el comentario"
+                  required
+                  [(ngModel)]="visit.comments"
+                />
+              </div>
+
+              <div class="form-group">
+                <h5 class="card-title">Estado de Incidencia</h5>
+                <select class="form-control" name="status" [(ngModel)]="visit.status">
+                  <option disabled selected value="">[Seleccionar Estado]</option>
+                  <option disabled selected value="0">Entrada</option>
+                  <option value="1">Salida</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+            Salir
+          </button>
+          <button type="button" class="btn btn-primary" (click)="changeStatus()" data-bs-dismiss="modal">Guardar Cambios</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+  </div>
+  <!-- content -->
+  <app-footer></app-footer>
+</div>

@@ -1,0 +1,247 @@
+<app-sidebar></app-sidebar>
+
+<div class="content-page">
+  <div class="content">
+    <app-topbar></app-topbar>
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="card">
+              <div class="card-body">
+
+                <div class="row">
+                    <div class="mb-2 col-sm-3">
+                        <div class="mb-3 col-sm-12">
+                            <label class="form-label" for="validationCustom01">DNI</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="dni"
+                              id="dni"
+                              [(ngModel)]="paymentReceipt.department.user.dni"
+                              placeholder="Ingrese el DNI"
+                              required
+                            />
+                        </div>
+                        <div class="mb-3 col-sm-12">
+                            <label class="form-label" for="validationCustom01">Nombre</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="name"
+                              id="name"
+                              [(ngModel)]="paymentReceipt.department.user.name"
+                              placeholder="Ingrese el Nombre"
+                              required
+                            />
+                        </div>
+                    </div>
+                    <div class="mb-2 col-sm-3">
+                        <div class="mb-3 col-sm-12">
+                            <label class="form-label" for="validationCustom02">Servicio</label>
+                            <select
+                              id="typeService"
+                              name="typeService"
+                              class="form-control"
+                              [(ngModel)]="paymentReceipt.typeService!.id"
+                            >
+                              <option value="" disabled selected>[Selección de servicio]</option>
+                              <option [value]="item.id" *ngFor="let item of listTypeServices">
+                                {{ item.name }}
+                              </option>
+                            </select>          
+                        </div>
+                        <div class="mb-3 col-sm-12">
+                            <label class="form-label" for="validationCustom02">Estado</label>
+                            <select
+                              id="state"
+                              name="status"
+                              class="form-control"
+                              [(ngModel)]="paymentReceipt.status"
+                            >
+                              <option value="" disabled selected>[Selección de estado]</option>
+                              <option value="1" selected>No Pagado</option>
+                              <option value="2" selected>Pagado</option>
+                            </select>          
+                        </div>
+                    </div>
+                    <div class="row col-sm-4">
+                        <div class="col-sm-12">
+                            <a
+                            style="cursor: pointer; width: 100%;"
+                            class="btn btn-warning mt-4"
+                            (click)="reset()"
+                            >Reiniciar
+                            </a>
+                        </div>
+                        <div class="col-sm-12">
+                            <a
+                            style="cursor: pointer; width: 100%;"
+                            class="btn btn-primary"
+                            (click)="consulta()"
+                            >Filtrar
+                            </a>
+                        </div>
+                    </div>
+                </div>   
+
+                <div class="row mb-2">
+                  <div class="col-sm-4">
+                    <a
+                      style="cursor: pointer"
+                      routerLink="/dashboard/boleta/create"
+                      class="btn btn-danger mb-2"
+                      ><i class="mdi mdi-plus-circle me-2"></i> 
+                      Generar Boleta
+                      </a
+                    >
+                  </div>
+                </div>
+
+                <div class="table-responsive">
+                  <table
+                    class="table table-centered w-100 dt-responsive nowrap"
+                    id="boleta-datatable"
+                  >
+                    <thead class="table-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Torre</th>
+                        <th>Departamento</th>
+                        <th>Servicio</th>
+                        <th>Fecha de pago</th>
+                        <th>Periodo</th>
+                        <th>Fecha de registro</th>
+                        <th>Estado</th>
+                        <th>Fecha de Vencimiento</th>
+                        <th>Administrador</th>
+                        <th>Fecha de pago usuario</th>
+                        <th style="width: 110px">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let item of paymentReceipts; let indice = index">
+                      <tr>
+                        <td>{{ indice + 1 }}</td>
+                        <td>{{ item.department.tower.name }}</td>
+                        <td>{{ item.department.name }}</td>
+                        <td>{{ item.typeService.name }}</td>
+                        <td>{{ item.paymentDate }}</td>
+                        <td>{{ item.periodDate }}</td>
+                        <td>{{ item.registrationDate }}</td>
+                        <td>
+                          {{ getEstado(item.status == null ? 1 : item.status) }}
+                        </td>
+                        <td>{{ item.expirationDate }}</td>
+                        <td>{{ item.user.name }}</td>
+                        <td>{{ item.userPaymentDate }}</td>
+                        <td class="table-action" *ngIf="item.status == 2">
+                          <button
+                            type="button"
+                            disabled
+                            class="btn btn-primary"
+                          >
+                          {{getTextoBottonEstado(item.status==null?1:item.status)}}
+                          </button>
+                        </td>
+                        <td class="table-action" *ngIf="item.status == 1">
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop"
+                            (click)="searchPayment(item)"
+                          >
+                          {{getTextoBottonEstado(item.status==null?1:item.status)}}
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- end card-body-->
+            </div>
+            <!-- end card-->
+            <!-- end row -->
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container -->
+    <!-- Static Backdrop modal -->
+    <div
+      id="staticBackdrop"
+      class="modal fade"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="staticBackdropLabel">Pagar Boleta</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-hidden="true"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Código: <span class="codigo">{{ paymentReceipt.id }}</span></h5>
+                <h5 class="card-title">Torre: <span class="department">{{ paymentReceipt.department.tower.name }}</span></h5>
+                <h5 class="card-title">Departamento: <span class="department">{{ paymentReceipt.department.name }}</span></h5>
+                <h5 class="card-title">Propietario: <span class="cause">{{ paymentReceipt.department.user.name }}</span></h5>
+
+                <div class="mb-3">
+                    <label class="form-label" for="validationCustom02"
+                      >Fecha y hora de Pago</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="userPaymentDate"
+                      id="userPaymentDate"
+                      disabled
+                      [value]="dateTime"
+                      [(ngModel)]="dateTime"
+                      required
+                    />
+                </div>
+  
+                <div class="form-group">
+                  <h5 class="card-title">Estado de Pago</h5>
+                  <select class="form-control" name="status" [(ngModel)]="paymentReceipt.status">
+                    <option disabled selected value="">[Seleccionar Estado]</option>
+                    <option disabled selected value="1">No Pagado</option>
+                    <option value="2">Pagado</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+              Salir
+            </button>
+            <button type="button" class="btn btn-primary" (click)="updateProccess()" data-bs-dismiss="modal">Guardar Cambios</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+  </div>
+  <!-- content -->
+  <app-footer></app-footer>
+</div>

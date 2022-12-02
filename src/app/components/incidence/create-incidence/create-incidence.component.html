@@ -1,0 +1,110 @@
+<app-sidebar></app-sidebar>
+
+<div class="content-page">
+  <div class="content">
+    <app-topbar></app-topbar>
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item">
+                  <a href="javascript: void(0);">Hyper</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a style="cursor: pointer" routerLink="/dashboard/incidence"
+                    >Incidencia</a
+                  >
+                </li>
+                <li class="breadcrumb-item active">Crear Incidencia</li>
+              </ol>
+            </div>
+            <h4 class="page-title">Crear Incidencia</h4>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <form #registerIncidence="ngForm" (ngSubmit)="register(registerIncidence)">
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02"
+                >Departamento</label
+              >
+              <select
+                id="department"
+                name="department"
+                class="form-control"
+                required
+                [(ngModel)]="incidence.department!.id"
+              >
+                <option value="" disabled selected>
+                  [Seleccione el Departamento]
+                </option>
+                <option [value]="item.id" *ngFor="let item of listDepartments">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="validationCustom02">Causas de Incidente</label>
+                <select
+                  id="cause"
+                  name="cause"
+                  class="form-control"
+                  [(ngModel)]="incidence.cause"
+                >
+                  <option value="" disabled selected>[Selección de opciones]</option>
+                  <option value="ruidos molestos" selected>Ruidos molestos</option>
+                  <option value="filtraciones" selected>Filtraciones</option>
+                </select>          
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02"
+                >Fecha y hora de incidencia</label
+              >
+              <input
+                type="datetime-local"
+                class="form-control"
+                name="incidenceDate"
+                id="incidenceDate"
+                required
+                [(ngModel)]="incidence.incidenceDate"
+              />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="validationCustom01">Descripción</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="comment"
+                  id="comment"
+                  [(ngModel)]="incidence.comment"
+                  placeholder="Ingrese su descripción"
+                  required
+                />
+              </div>
+              <div class="list-inline">
+                <button class="btn btn-primary mb-4" type="submit">
+                  Registrar Incidencia
+                </button>
+                <button class="btn btn-secondary mb-4 list-inline-item float-end" routerLink="/dashboard/incidence" type="button">
+                  Regresar               
+                </button>
+              </div> 
+            
+          </form>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- content -->
+  <app-footer></app-footer>
+</div>

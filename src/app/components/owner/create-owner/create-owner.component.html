@@ -1,0 +1,106 @@
+<app-sidebar></app-sidebar>
+
+<div class="content-page">
+  <div class="content">
+    <app-topbar></app-topbar>
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item">
+                  <a href="javascript: void(0);">Hyper</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a style="cursor: pointer" routerLink="/dashboard/owner"
+                    >Propietario</a
+                  >
+                </li>
+                <li class="breadcrumb-item active">Crear Propietario</li>
+              </ol>
+            </div>
+            <h4 class="page-title">Crear Propietario</h4>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <form #registerOwner="ngForm" (ngSubmit)="register(registerOwner)">
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom01">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                id="validationCustom01"
+                name="nom_propietario"
+                [(ngModel)]="owner.nom_propietario"
+                placeholder="Ingrese su nombre"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">DNI</label>
+              <input
+                type="text"
+                class="form-control"
+                id="validationCustom02"
+                name="dni_propietario"
+                [(ngModel)]="owner.dni_propietario"
+                placeholder="Ingrese su DNI"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="example-number" class="form-label">Edad</label>
+              <input
+                class="form-control"
+                id="example-number"
+                name="edad_propietario"
+                [(ngModel)]="owner.edad_propietario"
+                type="text"
+                placeholder="Ingrese su edad"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02"
+                >Correo electronico</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="validationCustom02"
+                name="correo_propietario"
+                [(ngModel)]="owner.correo_propietario"
+                placeholder="Ingrese su correo electrónico"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="example-date" class="form-label">Usuario</label>
+              <select id="user" name="user" class="form-control" required [(ngModel)]="owner.usuario!.id">
+                <option value="" disabled selected>[Seleccione]</option>
+                <option value="{{item.id}}" *ngFor="let item of listUser">
+                    {{item.name}}
+                </option>
+              </select>
+            </div>
+            <button class="btn btn-primary mb-4" type="submit">
+              Registrar Propietario
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- content -->
+  <app-footer></app-footer>
+</div>

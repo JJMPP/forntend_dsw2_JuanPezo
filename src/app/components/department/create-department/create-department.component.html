@@ -1,0 +1,156 @@
+<app-sidebar></app-sidebar>
+
+<div class="content-page">
+  <div class="content">
+    <app-topbar></app-topbar>
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item">
+                  <a href="javascript: void(0);">Hyper</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a style="cursor: pointer" routerLink="/dashboard/department"
+                    >Departamento</a
+                  >
+                </li>
+                <li class="breadcrumb-item active">Crear Departamento</li>
+              </ol>
+            </div>
+            <h4 class="page-title">Crear Departamento</h4>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <form #registerDepartment="ngForm" (ngSubmit)="register(registerDepartment)">
+            <div class="mb-3">
+              <label class="form-label" for="name"
+                >Nombre</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                id="name"
+                [(ngModel)]="department.name"
+                placeholder="Ingrese la condición"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">N° departamento</label>
+              <input
+                type="text"
+                class="form-control"
+                name="number"
+                id="number"
+                [(ngModel)]="department.number"
+                placeholder="Ingrese el número"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Metros</label>
+              <input
+                type="text"
+                class="form-control"
+                name="squareMeters"
+                id="squareMeters"
+                [(ngModel)]="department.squareMeters"
+                placeholder="Ingrese los metros cuadrados"
+                required
+              />
+            </div>            
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Piso</label>
+              <input
+                type="text"
+                class="form-control"
+                name="floor"
+                id="floor"
+                [(ngModel)]="department.floor"
+                placeholder="Ingrese el piso"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">N° habitaciones</label>
+              <input
+                type="text"
+                class="form-control"
+                name="numberRooms"
+                id="numberRooms"
+                [(ngModel)]="department.numberRooms"
+                placeholder="Ingrese el número de las habitaciones"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Edificio</label>
+              <select
+                id="tower"
+                name="tower"
+                class="form-control"
+                [(ngModel)]="department.tower!.id"
+              >
+                <option value="" disabled selected>[Seleccione Edificio]</option>
+                <option value="{{ item.id }}" *ngFor="let item of listTowers">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Tipo</label>
+              <select
+                id="departmentTypes"
+                name="departmentTypes"
+                class="form-control"
+                [(ngModel)]="department.departmentTypes!.id"
+              >
+                <option value="" disabled selected>[Seleccione tipo departamento]</option>
+                <option value="{{ item.id }}" *ngFor="let item of listDepartmentTypes">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Propietario</label>
+              <select
+                id="user"
+                name="user"
+                class="form-control"
+                [(ngModel)]="department.user!.id"
+              >
+                <option value="" disabled selected>[Seleccione propietario]</option>
+                <option value="{{ item.id }}" *ngFor="let item of listUsers">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+            <div class="list-inline">
+              <button class="btn btn-primary mb-4 list-inline-item" type="submit">
+                Registrar Departamento
+              </button>
+              <button class="btn btn-secondary mb-4 list-inline-item float-end" routerLink="/dashboard/department" type="button">
+                Regresar               
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- content -->
+  <app-footer></app-footer>
+</div>

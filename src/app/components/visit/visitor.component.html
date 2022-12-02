@@ -1,0 +1,72 @@
+<app-sidebar></app-sidebar>
+
+<div class="content-page">
+  <div class="content">
+    <app-topbar></app-topbar>
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="card">
+              <div class="card-body">
+                <div class="row mb-2">
+                  <div class="col-sm-4">
+                    <a
+                      style="cursor: pointer"
+                      routerLink="/dashboard/visitor/create"
+                      class="btn btn-danger mb-2"
+                      ><i class="mdi mdi-plus-circle me-2"></i> Registrar
+                      Visitante</a
+                    >
+                  </div>
+                </div>
+
+                <div class="table-responsive">
+                  <table
+                    class="table table-centered w-100 dt-responsive nowrap"
+                    id="products-datatable"
+                    style="text-align: center"
+                  >
+                    <thead class="table-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Teléfono</th>
+                        <th>DNI</th>
+                        <th>Propietario</th>
+                        <!-- <th>Fecha y hora ingreso</th>
+                        <th>Fecha y hora salida</th>
+                        <th>Estado</th>
+                        <th style="width: 110px">Acciones</th> -->
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let item of visitors; let indice = index">
+                      <tr>
+                        <td>{{ indice + 1 }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.lastname }}</td>
+                        <td>{{ item.phone }}</td>
+                        <td>{{ item.dni }}</td>
+                        <td>{{ item.user.name }}</td>                        
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- end card-body-->
+            </div>
+            <!-- end card-->
+            <!-- end row -->
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- content -->
+  <app-footer></app-footer>
+</div>

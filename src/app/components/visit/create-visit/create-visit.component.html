@@ -1,0 +1,135 @@
+<app-sidebar></app-sidebar>
+
+<div class="content-page">
+  <div class="content">
+    <app-topbar></app-topbar>
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item">
+                  <a href="javascript: void(0);">Hyper</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a style="cursor: pointer" routerLink="/dashboard/visit"
+                    >Visita</a
+                  >
+                </li>
+                <li class="breadcrumb-item active">Crear Visita</li>
+              </ol>
+            </div>
+            <h4 class="page-title">Crear Visita</h4>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <form #registerVisit="ngForm" (ngSubmit)="register(registerVisit)">
+            <div class="mb-3 col-md-3">
+              <label class="form-label">DNI</label>
+              <div class="input-group">
+                <input
+                  name="filtro"
+                  type="text"
+                  class="form-control"
+                  placeholder="Ingrese su DNI"
+                  [(ngModel)]="filtro"
+                />
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  (click)="consulta()"
+                >
+                  Buscar
+                </button>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02"
+                >Visitante</label
+              >
+              <input         
+                type="text"
+                class="form-control"
+                id="visitor"
+                [value]="visitor.name + ' ' + visitor.lastname"
+                name="visitor"
+                placeholder="Ingrese el Visitante"
+                disabled
+                required
+                [(ngModel)]="visit.visitor!.id"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02"
+                >Fecha y hora de entrada</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="entryDate"
+                id="entryDate"
+                disabled
+                [value]="dateTime"
+                [(ngModel)]="dateTime"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02"
+                >Fecha y hora de salida estimada</label
+              >
+              <input
+                type="datetime-local"
+                class="form-control"
+                name="estimatedDate"
+                id="estimatedDate"
+                required
+                [(ngModel)]="visit.estimatedDate"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02"
+                >Departamento</label
+              >
+              <select
+                id="visitor"
+                name="visitor"
+                class="form-control"
+                required
+                [(ngModel)]="visit.department!.id"
+              >
+                <option value="" disabled selected>
+                  [Seleccione el Departamento]
+                </option>
+                <option [value]="item.id" *ngFor="let item of listDepartments">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+            <div class="list-inline">
+              <button class="btn btn-primary mb-4" type="submit">
+                Registrar Visita
+              </button>
+              <button class="btn btn-secondary mb-4 list-inline-item float-end" routerLink="/dashboard/visit" type="button">
+                Regresar               
+              </button>
+            </div> 
+            
+          </form>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- content -->
+  <app-footer></app-footer>
+</div>

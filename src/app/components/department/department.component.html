@@ -1,0 +1,85 @@
+<app-sidebar></app-sidebar>
+
+<div class="content-page">
+  <div class="content">
+    <app-topbar></app-topbar>
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="card">
+              <div class="card-body">
+                <div class="row mb-2">
+                  <div class="col-sm-4">
+                    <a
+                      style="cursor: pointer"
+                      routerLink="/dashboard/department/create"
+                      class="btn btn-danger mb-2"
+                      ><i class="mdi mdi-plus-circle me-2"></i> Crear Departamento</a
+                    >
+                  </div>
+                </div>
+
+                <div class="table-responsive">
+                  <table
+                    class="table table-centered w-100 dt-responsive nowrap"
+                    id="products-datatable"
+                  >
+                    <thead class="table-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>N° departamento</th>
+                        <th>Metros</th>
+                        <th>Piso</th>
+                        <th>N° habitaciones</th>
+                        <th>Edificio</th>
+                        <th>Tipo</th>
+                        <th>Propietario</th>
+                        <!-- <th>Estado</th> -->
+                        <th>Fecha de Registro</th>
+                        <th style="width: 110px">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let item of listDepartments; let indice = index">
+                      <tr *ngIf="item.status != 1">
+                        <td>{{ indice + 1 }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.number }}</td>
+                        <td>{{ item.squareMeters }}</td>
+                        <td>{{ item.floor }}</td>
+                        <td>{{ item.numberRooms }}</td>
+                        <td>{{ item.tower.name }}</td>
+                        <td>{{ item.departmentTypes.name }}</td>
+                        <td>{{ item.user.name }}</td>
+                        <!-- <td>{{ item.status }}</td> -->
+                        <td>{{ item.joinDate }}</td>
+                        <td class="table-action">
+                          <a style="cursor: pointer" [routerLink]="['/dashboard/department/update/', item.id]"  class="action-icon">
+                            <i class="mdi mdi-square-edit-outline"></i
+                          ></a>
+                          <a style="cursor: pointer" class="action-icon" (click)="deleteDepartment(item)">
+                            <i class="mdi mdi-delete"></i
+                          ></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- end card-body-->
+            </div>
+            <!-- end card-->
+            <!-- end row -->
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- content -->
+  <app-footer></app-footer>
+</div>

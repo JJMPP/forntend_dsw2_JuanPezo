@@ -1,0 +1,142 @@
+<app-sidebar></app-sidebar>
+
+<div class="content-page">
+  <div class="content">
+    <app-topbar></app-topbar>
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item">
+                  <a href="javascript: void(0);">Hyper</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a style="cursor: pointer" routerLink="/dashboard/user"
+                    >Usuario</a
+                  >
+                </li>
+                <li class="breadcrumb-item active">Actualizar Usuario</li>
+              </ol>
+            </div>
+            <h4 class="page-title">Actualizar Usuario</h4>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <form #updateUser="ngForm" (ngSubmit)="update(updateUser)">
+            <div class="mb-3">
+              <label class="form-label" for="name"
+                >Nombre</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                id="name"
+                [(ngModel)]="newuser.name"
+                placeholder="Ingrese el nombre"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Nombre de usuario</label>
+              <input
+                type="text"
+                class="form-control"
+                name="username"
+                id="username"
+                [(ngModel)]="newuser.username"
+                placeholder="Ingrese el nombre de usuario"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Correo electrónico</label>
+              <input
+                type="text"
+                class="form-control"
+                name="email"
+                id="email"
+                [(ngModel)]="newuser.email"
+                placeholder="Ingrese el correo electrónico"
+                required
+              />
+            </div>            
+            <!-- <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Contraseña</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                [(ngModel)]="newuser.password"
+                placeholder="Nueva contraseña"
+                required
+              />
+            </div> -->
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">DNI</label>
+              <input
+                type="text"
+                class="form-control"
+                name="dni"
+                id="dni"
+                [(ngModel)]="newuser.dni"
+                placeholder="Ingrese el DNI"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Teléfono</label>
+              <input
+                type="text"
+                class="form-control"
+                name="phone"
+                id="phone"
+                [(ngModel)]="newuser.phone"
+                placeholder="Ingrese el teléfono"
+                required
+              />
+            </div>
+
+            <!-- <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Rol de usuario</label>
+              <select
+                id="roles"
+                name="roles"
+                class="form-control"                
+                [(ngModel)]="newuser.roles[0]"
+              >
+                <option value="" disabled selected>[Seleccione Rol de Usuario]</option>
+                <option [value]="item.id" *ngFor="let item of listaRole">
+                  {{ item.desc }}
+                </option>
+              </select>
+            </div> -->
+
+            <div class="list-inline">
+              <button class="btn btn-primary mb-4 list-inline-item" type="submit">
+                Actualizar Usuario
+              </button>
+              <button class="btn btn-secondary mb-4 list-inline-item float-end" routerLink="/dashboard/user" type="button">
+                Regresar               
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- content -->
+  <app-footer></app-footer>
+</div>

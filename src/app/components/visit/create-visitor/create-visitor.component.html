@@ -1,0 +1,121 @@
+<app-sidebar></app-sidebar>
+
+<div class="content-page">
+  <div class="content">
+    <app-topbar></app-topbar>
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item">
+                  <a href="javascript: void(0);">Hyper</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a style="cursor: pointer" routerLink="/dashboard/visitor"
+                    >Visitante</a
+                  >
+                </li>
+                <li class="breadcrumb-item active">Crear Visitante</li>
+              </ol>
+            </div>
+            <h4 class="page-title">Crear Visitante</h4>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <form #registerVisitor="ngForm" (ngSubmit)="register(registerVisitor)">
+            <div class="mb-3">
+              <label class="form-label" for="name"
+                >Nombre</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                id="name"
+                placeholder="Ingrese el nombre"
+                required
+                [(ngModel)]="visitor.name"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="lastname"
+                >Apellidos</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="lastname"
+                id="lastname"
+                placeholder="Ingrese los apellidos"
+                required
+                [(ngModel)]="visitor.lastname"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">Teléfono</label>
+              <input
+                type="text"
+                class="form-control"
+                name="phone"
+                id="phone"
+                placeholder="Ingrese el teléfono"
+                required
+                [(ngModel)]="visitor.phone"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02">DNI</label>
+              <input
+                type="text"
+                class="form-control"
+                name="dni"
+                id="dni"
+                placeholder="Ingrese el DNI"
+                required
+                [(ngModel)]="visitor.dni"
+              />
+            </div>            
+            <div class="mb-3">
+              <label class="form-label" for="validationCustom02"
+                >Propietario</label
+              >
+              <select
+                id="user"
+                name="propietario"
+                class="form-control"
+                required
+                [(ngModel)]="visitor.user!.id"
+              >
+                <option value="" disabled selected>[Seleccione el Propietario]</option>
+                <option [value]="item.id" *ngFor="let item of users">                  
+                  {{ item.username  }}
+                </option>
+              </select>
+            </div>
+            <div class="list-inline">
+              <button class="btn btn-primary mb-4" type="submit">
+                Registrar Visitante
+              </button>
+              <button class="btn btn-secondary mb-4 list-inline-item float-end" routerLink="/dashboard/visitor" type="button">
+                Regresar               
+              </button>
+            </div>             
+          </form>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- content -->
+  <app-footer></app-footer>
+</div>
